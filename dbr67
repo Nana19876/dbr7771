@@ -283,4 +283,79 @@ end)
 	
 })
 
-123123123213123123123
+local Toggle = MiscTab:CreateToggle({
+   Name = "esp - generator",
+   CurrentValue = false,
+   Flag = "toggleexample",
+   Callback = function(Value)
+   
+   local ESP = loadstring(game:HttpGet("https://Kiriot22.com/releases/ESP.lua"))()
+
+ESP.Players = false
+ESP.Boxes = false
+ESP.Names = true
+ESP:Toggle(true)
+
+-- Флаг включения ESP
+ESP.showGeneratorESP = true
+
+-- Добавление ObjectListener для генераторов
+for i = 1, 7 do
+    local generatorName = "Generator" .. i
+    local generator = workspace:FindFirstChild(generatorName)
+
+    if generator and generator:FindFirstChild("CollisionBox") then
+        ESP:AddObjectListener(generator, {
+            Name = "CollisionBox",                          -- Название объекта внутри генератора
+            CustomName = "Generator" .. i,                     -- Отображаемое имя
+            Color = Color3.fromRGB(0, 255, 255),            -- Цвет (голубой)
+            IsEnabled = "showGeneratorESP"                  -- Флаг включения
+        })
+    else
+        warn("Не найден CollisionBox у " .. generatorName)
+    end
+end
+
+
+	end,
+	
+})
+
+
+local Toggle = MiscTab:CreateToggle({
+   Name = "esp - pallet",
+   CurrentValue = false,
+   Flag = "toggleexample",
+   Callback = function(Value)
+
+local ESP = loadstring(game:HttpGet("https://Kiriot22.com/releases/ESP.lua"))()
+
+ESP.Players = false
+ESP.Boxes = false
+ESP.Names = true
+ESP:Toggle(true)
+
+-- Флаг включения ESP
+ESP.showCollisionESP = true
+
+-- Добавление ObjectListener для всех палет
+for i = 1, 30 do
+    local palletName = "Pallet" .. i
+    local pallet = workspace:FindFirstChild(palletName)
+
+    if pallet and pallet:FindFirstChild("Panel") then
+        ESP:AddObjectListener(pallet.Panel, {
+            Name = "ModelCollision",                        -- Ищем точное имя объекта внутри Panel
+            CustomName = "palet" .. i,                  -- Отображаемое имя
+            Color = Color3.fromRGB(255, 255, 255),          -- Цвет
+            IsEnabled = "showCollisionESP"                  -- Флаг отображения
+        })
+    else
+        warn("Не найдена панель у " .. palletName)
+    end
+end
+   
+   	end,
+	
+})
+
